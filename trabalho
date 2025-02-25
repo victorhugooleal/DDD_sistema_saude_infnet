@@ -1,0 +1,55 @@
+Processos, Qualidade e Agilidade em Software
+Domain Driven Design (DDD)
+O objetivo desse projeto é apresentar, com base no problema descrito logo adiante, uma modelagem baseada na abordagem DDD. A ideia é demonstrar os princípios básicos da modelagem DDD identificando e delimitando contextos, determinando os domínios e subdomínios, classificando-os como domínio principal (o core do sistema), domínio genérico e/ou domínio de suporte.
+PROBLEMA
+Desenvolver um sistema voltado para a área de saúde responsável pelo registro de exames nos prontuários dos pacientes, desde a solicitação do exame para a coleta, divulgação de instruções de preparo, transporte dos materiais, quando necessário, de acordo com as regras logísticas de transporte. O laboratório central atende a diversas unidades de saúde, particulares ou através do SUS (sistema único de saúde).  O laboratório central é remunerado pela prestação de serviços. Os materiais coletados são encaminhados à área de recepção do laboratório central, onde é feita uma triagem e verificado se a qualidade das amostras (material coletado) está apropriada para prosseguir no laboratório, ou, caso contrário, será devolvida para a unidade originária do material.  Caso o material tenha sido aprovado na recepção, o material é enviado para a área de registro (abertura, como conhecido internamente) para fins de encaminhamento de coloração, se forem lâminas de cito ou histopatológicos) ou diretamente para as análises clínicas.  Assim, na área de produção do laboratório, os pedidos (nome que o faturamento atribui às solicitações de exames) são encaminhados às áreas de análise, conforme o tipo de exame.  São três áreas de análise, a análise clínica (sangue, urina e fezes), a análise citopatológicas (preventivos – Papanicolau como é denominado na área de produção).    Por exemplo, para a armazenagem de alguns materiais é necessário o acondicionamento em ambientes refrigerados. O principal produto do laboratório central é o resultado do exame, denominado laudo, documento médico muito importante.  Dez por cento dos exames são direcionados, de forma aleatória, para a área de qualidade (conhecida também como auditoria) que confere os resultados apontados no laudo inicial. Os laudos são registrados na plataforma central de exames, que permite acesso por internet ou aplicativo mobile. O nome do sistema é “Central de Exames” e os principais requisitos de negócio são:
+O paciente passa por uma consulta de rotina, feita por um médico de uma determinada especialidade clínica (cardiologia, ortopedia, pediatria, etc,) de uma unidade de saúde que utiliza os serviços do laboratório.  O médico fará o exame clínico e, a depender de alguns sintomas ou sinais, solicita exames de imagem e de análises clínica. O tipo de exame mais simples e frequente é chamado “Análise Clinica”, como o hemograma.
+
+Há um outros tipos de análise laboratorial que podem ser solicitadas pelos médicos das unidades de saúde, seja devido a suspeita a partir de sinais ou sintomas na anamnese (exame clínico), seja devido a alguma variação percebida em exame laboratorial do tipo análise clínica, ou, ainda em caso de exames de rotina (check up).  Um dos mais frequentes exames são os denominados “Análise Citopatológica”, sendo o material colhido por meio de procedimento ambulatorial relativamente simples, como raspagens.  Um exemplo é o exame preventivo de colo de útero, conhecido como “Papa Nicolau”.  Nesse tipo de exame, o profissional de saúde remove um material a partir de exame ginecológico na paciente.  Esse material oriundo da raspagem, contém material biológico rico, que é acondicionado em lâminas. Esse tipo de exame é conhecido como “Análise Citopatológica”.
+
+Em casos mais graves, o médico solicita um procedimento mais minucioso, denominado biopsia, feito geralmente com anestesia, pelo qual é retirado um material de um tecido do órgão suspeito de enfermidade pelos sintomas apresentados.  Esse tipo de material é armazenado com vários tipos de cuidado para não ser contaminado e/ou perder algum teor de qualidade que eventualmente impeça ou prejudique o laudo.   Esse tipo de exame é conhecido como “Análise Histopatológico”.
+
+Seja de que tipo for, uma solicitação de exame precisa ser registrada no prontuário eletrônico do paciente, contendo os seguintes dados:  a data, a unidade de saúde origem(ou do atendimento),  a matricula do paciente (também conhecida por número do prontuário), o tipo de exame e os parâmetros para aquele exame.  Por exemplo:  Tipo: 
+analise clínica .
+ sub=tipo:  Hemograma – Parâmetros: Colesterol, Glicemia, Hemoglobina Glicada, UREIA, Creatinina;  
+subtiipo: Urina – Parâmetro: EAS.
+analise citopatolícigo
+sub-tipo -  colo de útero ( papa Nicola)
+analise histopatolícigo
+sub-tipo  - mama
+
+Para fins de contabilidade e faturamento, cada tipo de exame apresenta um custo e um preço de venda. Por exemplo, um hemograma completo apresenta um custo de r$ 12,00 e é cobrado r$ 35,00 ao consumidor. Há também um preço para reembolso pelo plano de saúde, no caso desse exame, r$ 18,00. O SUS reembolsa os r$ 12,00 do custo.
+
+A solução para análises clínicas, como exames de urina, exame de fezes e o mais solicitado, exames de sangue, é registrada e controlada em um sistema próprio da organização. Os exames citopatológicos, são coletados em lâminas que serão analisadas por microscópio para avaliação de células e tecidos, em uma empresa parceira, com a qual a organização tem um contrato prevendo customizações, para o caso, por exemplo, quando é necessário implantar um novo tipo de exame.  Já os exames mais sofisticados, envolvem uma complexidade e requer equipamentos e pessoal que não são suportados nem pelo laboratório central nem pelos seus parceiros.  Nesse caso, o material colhido é encaminhado por um procedimento logístico a um laboratório externo conveniado que presta esse tipo de serviço que envolvendo análises moleculares e genéticas mais específicas. Para isso é estabelecida uma integração com um sistema de um laboratório conveniado.  Esse laboratório é muito especializado, faz parte de um grupo empresarial transnacional e apresenta uma forma de comunicação muito particular.  Esse laboratório não está aberto a sugestões de layouts.
+
+Os exames de análise clínica têm o seu resultado gerado com o auxílio de equipamentos, que geram informações configuradas para um laudo complementar por profissional técnico de laboratório, sendo conferido e tendo laudo assinado por médico patologista.  Esses materiais são analisados de forma automatizada, e no próprio laboratório central, os profissionais analistas de patologia clínica analisam os resultados indicados pelo software e elaboram os laudos de análise clínica.
+
+ Os exames de análise citopatológica são laudados por técnicos de laboratórios e são conferidos por médicos patologistas.  Da mesma forma, os exames de análise histopatológica são analisados por profissionais médicos patologistas e os resultados são dispostos em laudos.
+
+Todos os laudos devem ser disponibilizados no prontuário eletrônico do paciente e no portal de exames da organização.  Inclusive os laudos de exames realizados pelo laboratório genético conveniado. Para maior segurança do processo, o laudo é assinado eletronicamente por meio de uma ferramenta auxiliar de assinatura digital, com uma troca de mensagens em padrão proprietário por API dessa ferramenta.  
+
+Os pacientes ou médicos dos pacientes podem ter acesso externo aos laudos dos exames dos respectivos pacientes, bastando para isso se cadastrarem na plataforma devidamente autenticados com senha, ou baixar um aplicativo mobile.
+
+O sistema do laboratório central deve apresentar um mecanismo de alertas, quando um exame estiver fora dos intervalos de normalidade para os parâmetros do referido exame, um alerta por e-mail para o médico solicitante. O laboratório central trabalha 24hs x 7dias da semana.  Para isso, é utilizado um gabarito por tipos de exames, que contém valores de referência.   Para cada tipo de exame, os parâmetros têm um valor inicial, um valor final e um valor de referência, que pode variar por sexo e idade.  Por exemplo, a quantidade de células do tecido X (parâmetro do exame citopatológico de mama) é entre 1mm e 1,2mm de células.  Quantidades fora desse intervalo, devem ser direcionadas ao alarme.  
+
+O sistema deve apresentar um mecanismo de alerta quando o tempo de análise for expirado para a geração do laudo do exame.  Para essa funcionalidade, há um SLA (acordo de nível de serviço).  Então um hemograma tem a duração prevista de 4h, havendo o prazo de 2h quando for caracterizado como urgência.
+
+O sistema deve gerar uma integração por arquivo de transações batch(lote) relacionando todos os exames realizados no dia, com as informações de faturamento (preço, forma de pagamento). O sistema de faturamento apresenta um layout fixo e só aceita integração batch por arquivo texto.
+
+No caso de atendimento por clínica ou hospital particular, o exame poderá ser cobrado por meio de pagamentos como reembolsos por planos de saúde, aceitando também cartão de débito, crédito ou pix.
+
+Ao fim do mês, o sistema deve enviar um arquivo relacionando os exames para o sistema de contabilidade, contendo as informações:  data, clínica, paciente, exame, tipo exame, custo exame, preço exame e forma de pagamento. 
+
+Uma vez especificado o domínio, utilize a abordagem DDD e crie os seguintes artefatos:
+
+1.Mapa de Contexto
+
+2.Indique elementos importantes em sua linguagem ubíqua para esse domino, com pelo menos 10 termos.
+
+
+3.Crie o modelo em UML para as classes identificadas, e crie o domínio tático do projeto, destacando as entidades, os objetos de valor, os agregados e os eventos de domínio desse software.
+
+4.Elabore um diagrama dos contextos delimitados enfatizando as integrações, destacando os modelos Parceria, Fornecedor, Shared Kernel, Conformista e Camada anticorrupção.
+
+
+5.Evidencie no seu diagrama quando o fluxo é down ou up-stream. 

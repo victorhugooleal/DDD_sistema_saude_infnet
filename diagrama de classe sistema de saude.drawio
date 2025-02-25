@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Diagrama de Classes">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Classe Paciente -->
+        <mxCell id="Paciente" value="Paciente" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="180" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="PacienteAtributos" value="+id: UUID&#xa;+nome: String&#xa;+dataNascimento: Date&#xa;+CPF: String&#xa;+endereco: Endereco&#xa;+contato: Contato" style="text" vertex="1" parent="Paciente">
+          <mxGeometry width="180" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Classe Médico -->
+        <mxCell id="Medico" value="Médico" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="300" y="50" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="MedicoAtributos" value="+id: UUID&#xa;+nome: String&#xa;+CRM: String&#xa;+especialidade: String" style="text" vertex="1" parent="Medico">
+          <mxGeometry width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Classe Unidade de Saúde -->
+        <mxCell id="UnidadeSaude" value="Unidade de Saúde" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="550" y="50" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="UnidadeSaudeAtributos" value="+id: UUID&#xa;+nome: String&#xa;+tipo: String&#xa;+endereco: Endereco" style="text" vertex="1" parent="UnidadeSaude">
+          <mxGeometry width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Classe Exame -->
+        <mxCell id="Exame" value="Exame" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="50" y="300" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ExameAtributos" value="+id: UUID&#xa;+tipo: String&#xa;+subTipo: String&#xa;+parametros: List&lt;ParâmetroDeExame&gt;&#xa;+resultado: String" style="text" vertex="1" parent="Exame">
+          <mxGeometry width="180" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Classe Solicitação de Exame -->
+        <mxCell id="SolicitacaoExame" value="Solicitação de Exame" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="300" y="300" width="180" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="SolicitacaoExameAtributos" value="+id: UUID&#xa;+paciente: Paciente&#xa;+medico: Medico&#xa;+unidadeSaude: UnidadeSaude&#xa;+exames: List&lt;Exame&gt;&#xa;+dataSolicitacao: Date" style="text" vertex="1" parent="SolicitacaoExame">
+          <mxGeometry width="180" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Classe Prontuario -->
+        <mxCell id="Prontuario" value="Prontuário" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="550" y="300" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ProntuarioAtributos" value="+id: UUID&#xa;+paciente: Paciente&#xa;+dataCriacao: Date&#xa;+historico: List&lt;SolicitacaoExame&gt;" style="text" vertex="1" parent="Prontuario">
+          <mxGeometry width="180" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Classe Laudo -->
+        <mxCell id="Laudo" value="Laudo" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="800" y="50" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="LaudoAtributos" value="+id: UUID&#xa;+exame: Exame&#xa;+resultado: String&#xa;+dataEmissao: Date&#xa;+assinaturaDigital: String" style="text" vertex="1" parent="Laudo">
+          <mxGeometry width="180" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Classe Faturamento -->
+        <mxCell id="Faturamento" value="Faturamento" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="800" y="300" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="FaturamentoAtributos" value="+id: UUID&#xa;+exame: Exame&#xa;+custo: Double&#xa;+precoVenda: Double&#xa;+precoReembolso: Double" style="text" vertex="1" parent="Faturamento">
+          <mxGeometry width="180" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Relações -->
+        <mxCell id="rel1" edge="1" parent="1" source="SolicitacaoExame" target="Paciente">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel2" edge="1" parent="1" source="SolicitacaoExame" target="Medico">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel3" edge="1" parent="1" source="SolicitacaoExame" target="UnidadeSaude">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel4" edge="1" parent="1" source="SolicitacaoExame" target="Exame">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel5" edge="1" parent="1" source="Prontuario" target="Paciente">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel6" edge="1" parent="1" source="Prontuario" target="SolicitacaoExame">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel7" edge="1" parent="1" source="Laudo" target="Exame">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel8" edge="1" parent="1" source="Faturamento" target="Exame">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Mapa de Contexto">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Sistema Central de Exames -->
+        <mxCell id="SistemaCentralExames" value="Sistema Central de Exames" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="300" y="150" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Entidades Externas -->
+        <mxCell id="Paciente" value="Paciente" style="ellipse" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Medico" value="Médico" style="ellipse" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UnidadeSaude" value="Unidade de Saúde" style="ellipse" vertex="1" parent="1">
+          <mxGeometry x="550" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LaboratorioConveniado" value="Laboratório Conveniado" style="ellipse" vertex="1" parent="1">
+          <mxGeometry x="550" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SistemaFaturamento" value="Sistema de Faturamento" style="ellipse" vertex="1" parent="1">
+          <mxGeometry x="300" y="350" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Relações -->
+        <mxCell id="rel1" edge="1" parent="1" source="Paciente" target="SistemaCentralExames">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel2" edge="1" parent="1" source="Medico" target="SistemaCentralExames">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel3" edge="1" parent="1" source="UnidadeSaude" target="SistemaCentralExames">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel4" edge="1" parent="1" source="LaboratorioConveniado" target="SistemaCentralExames">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel5" edge="1" parent="1" source="SistemaCentralExames" target="SistemaFaturamento">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
